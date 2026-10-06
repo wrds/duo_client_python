@@ -982,7 +982,7 @@ class Admin(client.Client):
         path = '/admin/v1/users/' + user_id
         return self.json_api_call('DELETE', path, {})
 
-    def enroll_user(self, username, email, valid_secs=None):
+    def enroll_user(self, username, email, valid_secs=None, send_email=True):
         """
         Enroll a user and send them an enrollment email.
 
@@ -990,6 +990,7 @@ class Admin(client.Client):
         email - Email address
         valid_secs - Seconds before the enrollment link expires
                      (if 0 it never expires)
+        send_email - Setting to False will inhibit sending an enrollment email
 
         Returns nothing.
 
@@ -999,6 +1000,7 @@ class Admin(client.Client):
         params = {
             'username': username,
             'email': email,
+            'send_email': send_email,
         }
 
         if valid_secs is not None:
